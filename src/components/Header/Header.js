@@ -1,16 +1,32 @@
 import React, { Component } from 'react'
+import HeaderItems from '../HeaderItems/HeaderItems';
 import "./styles.css";
 
-class Header extends Component {
-  render() {
-    return (
-    <nav>
+
+function Header() {
+  const navItems = [
+    {name: 'Home', link: '/'},
+    {name: 'Peliculas', link: '/movies'},
+    {name: 'Series', link: '/series'},
+    {name: 'favoritas', link: '/favorites'}
+  ]
+
+  return (
+<nav>
+  {/* Titulo */}
+        <li> Far far Away Movies </li>
+  {/* Nav Items */}
+        <ul> 
+          {navItems.map((elm,idx) => (
+            <HeaderItems key={idx} name={elm.name} link={elm.link} />
+          ))}
+        </ul>
+    {/* Form de busqueda */}
         <li> </li>
-        <ul> </ul>
-        <li> </li>
-    </nav>
-    )
-  }
+    </nav>  
+  )
 }
+
+
 
 export default Header
