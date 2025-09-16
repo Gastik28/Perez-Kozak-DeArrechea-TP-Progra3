@@ -3,9 +3,9 @@ import Card from '../Card/Card'
 class TopRatedSeries extends Component {
   render() {
     return (
-<section>
+<section className='Section_container'>
             {
-                this.props.series.map((elm,idx)=> <Card key={idx + elm.original_title} data={elm}/> )
+                this.props.series.slice(0,4).map((elm,idx)=> <Card key={idx + elm.original_title} data={elm}/> )
             }
         </section>      )
   }

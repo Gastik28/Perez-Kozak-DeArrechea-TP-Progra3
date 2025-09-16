@@ -48,7 +48,9 @@ class Home extends Component {
       // Series Al Aire
       fetch(urlSeriesAire)
       .then((resp) => resp.json())
-      .then((data) => {
+      .then((data) => {        
+            console.log("SeriesAire API data:", data.results);
+
         this.setState({
           SeriesAire: data.results,
         });
@@ -66,7 +68,8 @@ class Home extends Component {
       })
       .catch((error) => console.log("Error Fetch", error));
   }
-  render() {
+
+  render() {    
     return (
       <div>
         <h1>Peliculas Populares</h1>
