@@ -4,8 +4,8 @@ import './styles.css'
 class Card extends Component {
   render() {
     return (
-      <article className="card-article">
-        <img src={`https://image.tmdb.org/t/p/w500${this.props.data.poster_path}`} alt="" />
+      <article className={this.props.css ? this.props.css : "card-article"}>
+        <img  src={`https://image.tmdb.org/t/p/w500${this.props.data.poster_path}`} alt="" />
         <h2>
           {
           this.props.data.original_title ? this.props.data.original_title : this.props.data.original_name

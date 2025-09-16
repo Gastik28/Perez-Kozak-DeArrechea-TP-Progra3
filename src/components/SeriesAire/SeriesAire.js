@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import Card from '../Card/Card'
+import './styles.css'
+
 class SeriesAire extends Component {
   render() {
         console.log('hola',this.props);
 
     return (
       
-<section className='Section_container'>
+<section className='section_serieaire'>
             {
-                this.props.series.slice(0,4).map((elm,idx)=> <Card key={idx + elm.original_title} data={elm}/> )
+                this.props.series.slice(0,4).map((elm,idx)=> <Card key={idx + elm.original_title} data={elm} css={'card-article-series-air'}/> )
             }
         </section>      )
   }
