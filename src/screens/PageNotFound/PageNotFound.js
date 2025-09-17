@@ -1,12 +1,12 @@
-import React from "react"
-
+import React from "react";
 
 function PageNotFound() {
-    return(
-
-      <h1>ERROR-PAGINA NO EXISTENTE</h1>
-      
-)
-    
+  return (
+    <section>
+      <h1>404 - Contenido inexistente</h1>
+      <p>La página que buscás no existe.</p>
+    </section>
+  );
 }
-export default PageNotFound
+
+export default PageNotFound;
