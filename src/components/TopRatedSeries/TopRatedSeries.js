@@ -7,7 +7,7 @@ class TopRatedSeries extends Component {
     return (
 <section className='section_topseries'>
             {
-                this.props.series.slice(0,6).map((elm,idx)=> <Card key={idx + elm.original_title} data={elm} css={'card-article-top-rated-series'}/> )
+                this.props.series.slice(0,6).map((elm,idx)=> <Card key={idx + elm.original_name} data={elm} css={'card-article-top-rated-series'}/> )
             }
         </section>      )
   }
