@@ -49,7 +49,6 @@ class Home extends Component {
       fetch(urlSeriesAire)
       .then((resp) => resp.json())
       .then((data) => {        
-            console.log("SeriesAire API data:", data.results);
 
         this.setState({
           SeriesAire: data.results,
@@ -61,7 +60,6 @@ class Home extends Component {
        fetch(urlTopRatedSeries)
       .then((resp) => resp.json())
       .then((data) => {
-        console.log("API TOP data.results:", data.results);
         this.setState({
           SeriesTopRated: data.results,
         });

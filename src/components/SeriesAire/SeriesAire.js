@@ -4,8 +4,6 @@ import './styles.css'
 
 class SeriesAire extends Component {
   render() {
-        console.log('hola',this.props);
-
     return (
       
 <section className='section_serieaire'>
