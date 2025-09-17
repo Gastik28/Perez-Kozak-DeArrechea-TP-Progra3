@@ -17,7 +17,7 @@ class Card extends Component {
       verMas: !this.state.verMas,
     })
   }
-  render() {
+  render() {    
     return (
       <article className={this.props.css ? this.props.css : "card-article"}>
         {/* Imagen */}
@@ -40,9 +40,8 @@ class Card extends Component {
               {this.state.verMas ? "Ver Menos" : "Ver Mas"}
           </button>
           {/* Detalle */}
-          <button>
-            <Link to={`detalle/id/${ this.props.id}`}> <p>Ir a detalle</p> </Link>
-          </button>
+            <Link to={`detalle/${this.props.type}/${this.props.data.id}`}> <p>Ir a detalle</p> </Link>
+
 
 
         </div>

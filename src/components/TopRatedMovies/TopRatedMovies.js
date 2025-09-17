@@ -8,7 +8,7 @@ import './styles.css'
     return (
  <section className='section_topmovie'>
             {
-                this.props.movies.slice(0,6).map((elm,idx)=> <Card key={idx + elm.original_title} data={elm} css={'card-article-top-rated-movies'}/> )
+                this.props.movies.slice(0,6).map((elm,idx)=> <Card key={idx + elm.original_title} data={elm} css={'card-article-top-rated-movies'} type={'movie'}/> )
             }
         </section>    )
   }

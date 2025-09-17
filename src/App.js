@@ -11,7 +11,7 @@ function App() {
       <Header />
       <Switch>
         <Route path="/" component={Home} exact={true} />
-        <Route path="/detalle/id/:id" component={Detalle} exact={true} />
+        <Route path="/detalle/:type/:id" component={Detalle} exact={true} />
 
       </Switch>
       <Footer />

@@ -8,7 +8,7 @@ class SeriesAire extends Component {
       
 <section className='section_serieaire'>
             {
-                this.props.series.slice(0,4).map((elm,idx)=> <Card key={idx + elm.original_name} data={elm} css={'card-article-series-air'}/> )
+                this.props.series.slice(0,4).map((elm,idx)=> <Card key={idx + elm.original_name} data={elm} css={'card-article-series-air'} type={'serie'}/> )
             }
         </section>      )
   }
