@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import './styles.css'
 import { Link } from "react-router-dom";
 
+
 class Card extends Component {
   constructor(props){
     super(props);
@@ -40,7 +41,7 @@ class Card extends Component {
               {this.state.verMas ? "Ver Menos" : "Ver Mas"}
           </button>
           {/* Detalle */}
-            <Link to={`detalle/${this.props.type}/${this.props.data.id}`}> <p>Ir a detalle</p> </Link>
+            <Link to={`/detalle/${this.props.type}/${this.props.data.id}`}> <p>Ir a detalle</p> </Link>
 
 
 

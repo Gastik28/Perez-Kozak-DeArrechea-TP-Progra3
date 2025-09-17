@@ -19,7 +19,8 @@ class Home extends Component {
       MoviesPopular: [],
       MoviesTopRated: [],
       SeriesAire: [],
-      SeriesTopRated: []
+      SeriesTopRated: [],
+      Categories: ['popular-movie', 'top-rated-movie', 'live-series', 'top-rated-series'],
     };
   }
 
@@ -74,25 +75,26 @@ class Home extends Component {
         <h1>Peliculas Populares</h1>
         <PopularMovies movies={this.state.MoviesPopular} />
         <h3>
-          <Link to={`/movies/:category`}> Ver todas </Link>
+          {/* Chequear si esta bien poner esto de esta manera */}
+          <Link to={`/movies/${this.state.Categories[0]}`}> Ver todas </Link>
         </h3>
 
         <h1>Peliculas Con Mayor Rating</h1>
         <TopRatedMovies movies={this.state.MoviesTopRated} />
        <h3>
-          <Link to={`/`}> Ver todas </Link>
+          <Link to={`/movies/${this.state.Categories[1]}`}> Ver todas </Link>
         </h3>
 
         <h1>Series Al Aire</h1>
         <SeriesAire series={this.state.SeriesAire} />
         <h3>
-          <Link to={`/`}> Ver todas </Link>
+          <Link to={`/series/${this.state.Categories[2]}`}> Ver todas </Link>
         </h3>
 
         <h1>Series Con Mayor Rating</h1>
         <TopRatedSeries series={this.state.SeriesTopRated} />
         <h3>
-          <Link to={`/`}> Ver todas </Link>
+          <Link to={`/series/${this.state.Categories[3]}`}> Ver todas </Link>
         </h3>
 
 
