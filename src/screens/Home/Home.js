@@ -4,7 +4,6 @@ import PopularMovies from "../../components/PopularMovies/PopularMovies";
 import TopRatedMovies from "../../components/TopRatedMovies/TopRatedMovies";
 import SeriesAire from "../../components/SeriesAire/SeriesAire";
 import TopRatedSeries from "../../components/TopRatedSeries/TopRatedSeries";
-import FormularioBusqueda from "../../components/SearchForm/SearchForm";
 const apikey = "66374e925f9ce0061d8e10191732f374";
 const urlPopMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${apikey}`;
 const urlTopRatedMovies = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apikey}`;
@@ -54,6 +53,8 @@ class Home extends Component {
       fetch(urlSeriesAire)
       .then((resp) => resp.json())
       .then((data) => {        
+        console.log("Data",data);
+        
         this.setState({
           SeriesAire: data.results,
         });
@@ -80,10 +81,10 @@ class Home extends Component {
 
 
   render() {    
+    console.log("seriesAire", this.state.SeriesAire);
     
     return (
       <div>
-        <FormularioBusqueda />
         
         {this.state.pedidoInicialCompleto ? (
           <div>

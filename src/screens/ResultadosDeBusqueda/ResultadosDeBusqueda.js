@@ -13,7 +13,10 @@ class ResultadosDeBusqueda extends React.Component {
 
     fetch(`https://api.themoviedb.org/3/${endpoint}?api_key=${apikey}&query=${query}`)
       .then(r => r.json())
-      .then(data => this.setState({ resultados: data.results || [] }))
+      .then(data => 
+        this.setState({
+           resultados: data.results || [] 
+          }))
       .catch(err => console.log("Error:", err));
   }
 
