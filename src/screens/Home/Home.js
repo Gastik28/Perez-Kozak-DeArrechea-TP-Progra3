@@ -41,6 +41,7 @@ class Home extends Component {
     fetch(urlTopRatedMovies)
       .then((resp) => resp.json())
       .then((data) => {
+        console.log("Data",data);
         this.setState({
           MoviesTopRated: data.results,
         });
@@ -51,7 +52,6 @@ class Home extends Component {
       fetch(urlSeriesAire)
       .then((resp) => resp.json())
       .then((data) => {        
-
         this.setState({
           SeriesAire: data.results,
         });
@@ -70,6 +70,7 @@ class Home extends Component {
   }
 
   render() {    
+    
     return (
       <div>
         <h1>Peliculas Populares</h1>

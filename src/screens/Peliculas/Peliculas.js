@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Card from "../../components/Card/Card";
 const apikey = "66374e925f9ce0061d8e10191732f374";
-const urlPopMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${apikey}`;
-const urlTopRatedMovies = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apikey}`;
 class Peliculas extends Component {
   constructor(props) {
     super(props);
@@ -11,29 +9,63 @@ class Peliculas extends Component {
       category: this.props.match.params.category,
       MoviesPopular: [],
       MoviesTopRated: [],
+      textoBoton: "Cargar más peliculas",
+      pageNumber: 1
     };
   }
   componentDidMount() {
     {
       this.state.category === "popular-movie"
-        ? fetch(urlPopMovies)
+        ? fetch( `https://api.themoviedb.org/3/movie/popular?api_key=${apikey}`)
             .then((resp) => resp.json())
             .then((data) => {
+            console.log("Data",data.total_pages);
+
               this.setState({
                 MoviesPopular: data.results,
+                pageNumber: this.state.pageNumber + 1
+
               });
             })
-        : fetch(urlTopRatedMovies)
+        : fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apikey}`)
             .then((resp) => resp.json())
             .then((data) => {
               this.setState({
                 MoviesTopRated: data.results,
+                pageNumber: this.state.pageNumber + 1
+
               });
             });
     }
   }
 
+ cargarMas(){
+this.state.category === "popular-movie"
+        ? fetch( `https://api.themoviedb.org/3/movie/popular?page=${this.state.pageNumber}&api_key=${apikey}`)
+            .then((resp) => resp.json())
+            .then((data) => {
+            console.log("Data",data.total_pages);
+
+              this.setState({
+                MoviesPopular: this.state.MoviesPopular.concat(data.results), //Concateno los nuevos productos con los viejos
+                pageNumber: this.state.pageNumber + 1
+              });
+            })
+        : fetch(`https://api.themoviedb.org/3/movie/top_rated?page=${this.state.pageNumber}&api_key=${apikey}`)
+            .then((resp) => resp.json())
+            .then((data) => {
+              this.setState({
+                MoviesTopRated: this.state.MoviesTopRated.concat(data.results), //Concateno los nuevos productos con los viejos
+                pageNumber: this.state.pageNumber + 1
+              });
+            });  
+ }
+
+  
+
   render() {
+    console.log('pagina', this.state.pageNumber);
+    
     return (
       <div>
         <h1>
@@ -65,7 +97,13 @@ class Peliculas extends Component {
             ))}
           </section>
         )}
+        <button onClick={()=> this.cargarMas()}>
+            {
+                this.state.textoBoton
+            }
+        </button>
       </div>
+      
     );
   }
 }
