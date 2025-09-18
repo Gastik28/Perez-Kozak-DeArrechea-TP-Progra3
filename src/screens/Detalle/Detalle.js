@@ -9,7 +9,8 @@ class Detalle extends Component {
       type: props.match.params.type,
       MoviesDetalles: [],
       SeriesDetalles: [],
-      pedidoInicialCompleto: false // Nuevo estado para controlar la carga
+      pedidoInicialCompleto: false// Nuevo estado para controlar la carga
+      
     };
   }
   componentDidMount() {
@@ -24,6 +25,7 @@ class Detalle extends Component {
                 MoviesDetalles: data,
                 pedidoInicialCompleto: true // Marcar como completo cuando se recibe la data
               });
+              this.checkIfFavorite();
             })
         : fetch(
             `https://api.themoviedb.org/3/tv/${this.props.match.params.id}?api_key=${apikey}`
@@ -34,9 +36,58 @@ class Detalle extends Component {
                 SeriesDetalles: data,
                 pedidoInicialCompleto: true 
               });
+              this.checkIfFavorite();
             });
     }
   }
+
+  checkIfFavorite(){
+    const storageKey = this.state.type === 'movie' ? 'favoriteMovies' : 'favoriteSeries'
+    
+    let recuperoFav = localStorage.getItem(storageKey)
+    
+    if(recuperoFav){
+      let favParceado = JSON.parse(recuperoFav)
+      const currentData = this.state.type === 'movie' ? this.state.MoviesDetalles : this.state.SeriesDetalles
+      if(favParceado.some(elm => elm.id === currentData.id)){
+        this.setState({ esFav: true })
+      }
+    }
+  }
+
+  agregarFav(){
+    const storageKey = this.state.type === 'movie' ? 'favoriteMovies' : 'favoriteSeries'
+    const currentData = this.state.type === 'movie' ? this.state.MoviesDetalles : this.state.SeriesDetalles
+    
+    let recuperoFav = localStorage.getItem(storageKey)
+    
+    if(recuperoFav == null){
+      let fav = [currentData]
+      let favString = JSON.stringify(fav)
+      localStorage.setItem(storageKey, favString)
+    } else {
+      let favParceado = JSON.parse(recuperoFav)
+      favParceado.push(currentData)
+      let favString = JSON.stringify(favParceado)
+      localStorage.setItem(storageKey, favString)
+    }
+    this.setState({ esFav: true })
+  }
+
+  sacaFav(){
+    const storageKey = this.state.type === 'movie' ? 'favoriteMovies' : 'favoriteSeries'
+    const currentData = this.state.type === 'movie' ? this.state.MoviesDetalles : this.state.SeriesDetalles
+    
+    let recuperoFav = localStorage.getItem(storageKey)
+    let favParceado = JSON.parse(recuperoFav)
+    
+    let filter = favParceado.filter(elm => elm.id !== currentData.id)
+    let favString = JSON.stringify(filter)
+    localStorage.setItem(storageKey, favString)
+    
+    this.setState({ esFav: false })
+  }
+
 
   render() {
     console.log("Movie", this.state.MoviesDetalles);
@@ -104,9 +155,16 @@ class Detalle extends Component {
       : this.state.SeriesDetalles?.genres?.map((genre) => genre.name)
             }      
           </p>
-        <button> Favoritos:</button>
-
-        </div>
+          {this.state.esFav ? (
+              <button onClick={() => this.sacaFav()}>
+                Sacar de favoritos
+              </button>
+            ) : (
+              <button onClick={() => this.agregarFav()}>
+                Agregar a favoritos
+              </button>
+            )}
+          </div>
         ) : (
           <h2>Cargando...</h2>
         )}
@@ -116,3 +174,6 @@ class Detalle extends Component {
 }
 
 export default Detalle;
+
+
+
