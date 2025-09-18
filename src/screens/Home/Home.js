@@ -4,6 +4,7 @@ import PopularMovies from "../../components/PopularMovies/PopularMovies";
 import TopRatedMovies from "../../components/TopRatedMovies/TopRatedMovies";
 import SeriesAire from "../../components/SeriesAire/SeriesAire";
 import TopRatedSeries from "../../components/TopRatedSeries/TopRatedSeries";
+import FormularioBusqueda from "../../components/SearchForm/SearchForm";
 const apikey = "66374e925f9ce0061d8e10191732f374";
 const urlPopMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${apikey}`;
 const urlTopRatedMovies = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apikey}`;
@@ -71,6 +72,8 @@ class Home extends Component {
   render() {    
     return (
       <div>
+        <FormularioBusqueda />
+        
         <h1>Peliculas Populares</h1>
         <PopularMovies movies={this.state.MoviesPopular} />
         <h3>
