@@ -42,50 +42,56 @@ class Detalle extends Component {
   }
 
   checkIfFavorite(){
-    const storageKey = this.state.type === 'movie' ? 'favoriteMovies' : 'favoriteSeries'
-    
-    let recuperoFav = localStorage.getItem(storageKey)
-    
-    if(recuperoFav){
-      let favParceado = JSON.parse(recuperoFav)
-      const currentData = this.state.type === 'movie' ? this.state.MoviesDetalles : this.state.SeriesDetalles
-      if(favParceado.some(elm => elm.id === currentData.id)){
-        this.setState({ esFav: true })
+    const storageKey = this.state.type === "movie" ? "favoriteMovies" : "favoriteSeries";
+  const currentId = this.state.id;   
+
+  let recuperoFav = localStorage.getItem(storageKey);
+
+  if (recuperoFav) {
+    let favParceado = JSON.parse(recuperoFav);
+    if (favParceado.includes(currentId)) {
+      this.setState({ esFav: true });
       }
     }
   }
 
   agregarFav(){
-    const storageKey = this.state.type === 'movie' ? 'favoriteMovies' : 'favoriteSeries'
-    const currentData = this.state.type === 'movie' ? this.state.MoviesDetalles : this.state.SeriesDetalles
-    
-    let recuperoFav = localStorage.getItem(storageKey)
-    
-    if(recuperoFav == null){
-      let fav = [currentData]
-      let favString = JSON.stringify(fav)
-      localStorage.setItem(storageKey, favString)
+    const storageKey = this.state.type === "movie" ? "favoriteMovies" : "favoriteSeries";
+    const currentId = this.state.id; // Solo el ID
+  
+    let recuperoFav = localStorage.getItem(storageKey);
+  
+    if (recuperoFav == null) {
+      // Si no hay favoritos, crea un array con el ID actual
+      let fav = [currentId];
+      localStorage.setItem(storageKey, JSON.stringify(fav));
     } else {
-      let favParceado = JSON.parse(recuperoFav)
-      favParceado.push(currentData)
-      let favString = JSON.stringify(favParceado)
-      localStorage.setItem(storageKey, favString)
+      // Si ya hay favoritos, agrega el ID actual
+      let favParceado = JSON.parse(recuperoFav);
+      if (!favParceado.includes(currentId)) {
+        favParceado.push(currentId);
+        localStorage.setItem(storageKey, JSON.stringify(favParceado));
+      }
     }
-    this.setState({ esFav: true })
+  
+    this.setState({ esFav: true });
   }
+  
 
   sacaFav(){
-    const storageKey = this.state.type === 'movie' ? 'favoriteMovies' : 'favoriteSeries'
-    const currentData = this.state.type === 'movie' ? this.state.MoviesDetalles : this.state.SeriesDetalles
-    
-    let recuperoFav = localStorage.getItem(storageKey)
-    let favParceado = JSON.parse(recuperoFav)
-    
-    let filter = favParceado.filter(elm => elm.id !== currentData.id)
-    let favString = JSON.stringify(filter)
-    localStorage.setItem(storageKey, favString)
-    
-    this.setState({ esFav: false })
+    const storageKey = this.state.type === "movie" ? "favoriteMovies" : "favoriteSeries";
+  const currentId = this.state.id; // Solo el ID
+
+  let recuperoFav = localStorage.getItem(storageKey);
+
+  if (recuperoFav) {
+    let favParceado = JSON.parse(recuperoFav);
+    // Filtra el ID actual
+    let filter = favParceado.filter((elm) => elm !== currentId);
+    localStorage.setItem(storageKey, JSON.stringify(filter));
+  }
+
+  this.setState({ esFav: false });
   }
 
 
