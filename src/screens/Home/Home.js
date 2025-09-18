@@ -22,6 +22,7 @@ class Home extends Component {
       SeriesAire: [],
       SeriesTopRated: [],
       Categories: ['popular-movie', 'top-rated-movie', 'live-series', 'top-rated-series'],
+      pedidoInicialCompleto: false
     };
   }
 
@@ -68,13 +69,24 @@ class Home extends Component {
         });
       })
       .catch((error) => console.log("Error Fetch", error));
+      
+      
+      // Marcar como completo cuando terminen todos los fetch
+   setTimeout(() => {
+    this.setState({ pedidoInicialCompleto: true });
+  }, 1000);
+  
   }
+
 
   render() {    
     
     return (
       <div>
         <FormularioBusqueda />
+        
+        {this.state.pedidoInicialCompleto ? (
+          <div>
         
         <h1>Peliculas Populares</h1>
         <PopularMovies movies={this.state.MoviesPopular} />
@@ -100,6 +112,11 @@ class Home extends Component {
         <h3>
           <Link to={`/series/${this.state.Categories[3]}`}> Ver todas </Link>
         </h3>
+
+        </div>
+        ) : (
+          <h2>Cargando...</h2>
+        )}
 
 
 

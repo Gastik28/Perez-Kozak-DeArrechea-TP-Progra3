@@ -9,6 +9,7 @@ class Detalle extends Component {
       type: props.match.params.type,
       MoviesDetalles: [],
       SeriesDetalles: [],
+      pedidoInicialCompleto: false // Nuevo estado para controlar la carga
     };
   }
   componentDidMount() {
@@ -21,6 +22,7 @@ class Detalle extends Component {
             .then((data) => {
               this.setState({
                 MoviesDetalles: data,
+                pedidoInicialCompleto: true // Marcar como completo cuando se recibe la data
               });
             })
         : fetch(
@@ -30,6 +32,7 @@ class Detalle extends Component {
             .then((data) => {
               this.setState({
                 SeriesDetalles: data,
+                pedidoInicialCompleto: true 
               });
             });
     }
@@ -41,6 +44,8 @@ class Detalle extends Component {
 
     return (
       <div>
+         {this.state.pedidoInicialCompleto ? ( 
+          <div>
         <h1> 
           {
             this.state.type === "movie"
@@ -101,6 +106,10 @@ class Detalle extends Component {
           </p>
         <button> Favoritos:</button>
 
+        </div>
+        ) : (
+          <h2>Cargando...</h2>
+        )}
       </div>
     );
   }
