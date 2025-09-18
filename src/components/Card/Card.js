@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import './styles.css'
 import { Link } from "react-router-dom";
 
+
 class Card extends Component {
   constructor(props){
     super(props);
     this.state={
       verMas: false,
+      esFav: false, ////////
     }
 
   }
@@ -17,6 +19,56 @@ class Card extends Component {
       verMas: !this.state.verMas,
     })
   }
+////////////
+  agregarFav(){
+    const { data, type } = this.props
+    const storageKey = type === 'movie' ? 'favoriteMovies' : 'favoriteSeries'
+    
+    let recuperoFav = localStorage.getItem(storageKey)
+    
+    if(recuperoFav == null){
+      let fav = [data]
+      let favString = JSON.stringify(fav)
+      localStorage.setItem(storageKey, favString)
+    } else {
+      let favParceado = JSON.parse(recuperoFav)
+      favParceado.push(data)
+      let favString = JSON.stringify(favParceado)
+      localStorage.setItem(storageKey, favString)
+    }
+    this.setState({ esFav: true })
+  }
+
+  sacaFav(){
+    const { data, type } = this.props
+    const storageKey = type === 'movie' ? 'favoriteMovies' : 'favoriteSeries'
+    
+    let recuperoFav = localStorage.getItem(storageKey)
+    let favParceado = JSON.parse(recuperoFav)
+    
+    let filter = favParceado.filter(elm => elm.id !== data.id)
+    let favString = JSON.stringify(filter)
+    localStorage.setItem(storageKey, favString)
+    
+    this.setState({ esFav: false })
+  }
+
+  componentDidMount(){
+    const { data, type } = this.props
+    const storageKey = type === 'movie' ? 'favoriteMovies' : 'favoriteSeries'
+    
+    let recuperoFav = localStorage.getItem(storageKey)
+    
+    if(recuperoFav){
+      let favParceado = JSON.parse(recuperoFav)
+      if(favParceado.some(elm => elm.id === data.id)){
+        this.setState({ esFav: true })
+      }
+    }
+  }
+
+
+
   render() {    
     return (
       <article className={this.props.css ? this.props.css : "card-article"}>
@@ -29,6 +81,8 @@ class Card extends Component {
           } 
         </h2>
         {/* Descripcion */}
+        <p> </p>
+        <p>{} </p>
         <div>
           {
             this.state.verMas ? (
@@ -40,11 +94,26 @@ class Card extends Component {
               {this.state.verMas ? "Ver Menos" : "Ver Mas"}
           </button>
           {/* Detalle */}
-            <Link to={`detalle/${this.props.type}/${this.props.data.id}`}> <p>Ir a detalle</p> </Link>
+            <Link to={`/detalle/${this.props.type}/${this.props.data.id}`}>
+             <p>Ir a detalle</p> </Link>
 
 
 
         </div>
+        
+          {/* Agregar a Favoritos - Sacar de Favoritos */}
+         
+        {this.state.esFav ? (
+            <button className="more" onClick={() => this.sacaFav()}>
+              Eliminar de Favoritos
+            </button>
+          ) : (
+            <button className="more" onClick={() => this.agregarFav()}>
+              Favoritos
+            </button>
+          )}
+
+
       </article>
     );
   }
