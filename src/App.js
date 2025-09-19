@@ -8,8 +8,9 @@ import Series from "./screens/Series/Series";
 import Detalle from "./screens/Detalle/Detalle";
 import PageNotFound from "./screens/PageNotFound/PageNotFound"; // importamos el componente de la pagina no encontrada
 import ResultadosDeBusqueda from "./screens/ResultadosDeBusqueda/ResultadosDeBusqueda";
-
 import Favoritos from "./screens/Favoritos/Favoritos"; // importamos el componente de los favoritos
+import './styles.css';
+
 
 function App() {
   return (
@@ -23,7 +24,6 @@ function App() {
         <Route path="/resultados/:tipo/:query" component={ResultadosDeBusqueda} exact={true} />
         <Route path="/favorites" component={Favoritos} exact={true} />  
         <Route component={PageNotFound}  />       
-
       </Switch>
       <Footer />
     </React.Fragment>

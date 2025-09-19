@@ -4,7 +4,7 @@ import PopularMovies from "../../components/PopularMovies/PopularMovies";
 import TopRatedMovies from "../../components/TopRatedMovies/TopRatedMovies";
 import SeriesAire from "../../components/SeriesAire/SeriesAire";
 import TopRatedSeries from "../../components/TopRatedSeries/TopRatedSeries";
-import FormularioBusqueda from "../../components/SearchForm/SearchForm";
+
 const apikey = "66374e925f9ce0061d8e10191732f374";
 const urlPopMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${apikey}`;
 const urlTopRatedMovies = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apikey}`;
@@ -82,45 +82,42 @@ class Home extends Component {
   render() {    
     
     return (
-      <div>
-        <FormularioBusqueda />
-        
-        {this.state.pedidoInicialCompleto ? (
-          <div>
-        
-        <h1>Peliculas Populares</h1>
-        <PopularMovies movies={this.state.MoviesPopular} />
-        <h3>
-          {/* Chequear si esta bien poner esto de esta manera */}
-          <Link to={`/movies/${this.state.Categories[0]}`}> Ver todas </Link>
-        </h3>
+      <main>
+        <div className="home-container">
+          {this.state.pedidoInicialCompleto ? (
+            <div>
+          
+          <div className="content-section">
+            <h1 className="section-title">Peliculas Populares</h1>
+            <PopularMovies movies={this.state.MoviesPopular} />
+            <Link to={`/movies/${this.state.Categories[0]}`} className="section-link"> Ver todas </Link>
+          </div>
 
-        <h1>Peliculas Con Mayor Rating</h1>
-        <TopRatedMovies movies={this.state.MoviesTopRated} />
-       <h3>
-          <Link to={`/movies/${this.state.Categories[1]}`}> Ver todas </Link>
-        </h3>
+          <div className="content-section">
+            <h1 className="section-title">Peliculas Con Mayor Rating</h1>
+            <TopRatedMovies movies={this.state.MoviesTopRated} />
+            <Link to={`/movies/${this.state.Categories[1]}`} className="section-link"> Ver todas </Link>
+          </div>
 
-        <h1>Series Al Aire</h1>
-        <SeriesAire series={this.state.SeriesAire} />
-        <h3>
-          <Link to={`/series/${this.state.Categories[2]}`}> Ver todas </Link>
-        </h3>
+          <div className="content-section">
+            <h1 className="section-title">Series Al Aire</h1>
+            <SeriesAire series={this.state.SeriesAire} />
+            <Link to={`/series/${this.state.Categories[2]}`} className="section-link"> Ver todas </Link>
+          </div>
 
-        <h1>Series Con Mayor Rating</h1>
-        <TopRatedSeries series={this.state.SeriesTopRated} />
-        <h3>
-          <Link to={`/series/${this.state.Categories[3]}`}> Ver todas </Link>
-        </h3>
+          <div className="content-section">
+            <h1 className="section-title">Series Con Mayor Rating</h1>
+            <TopRatedSeries series={this.state.SeriesTopRated} />
+            <Link to={`/series/${this.state.Categories[3]}`} className="section-link"> Ver todas </Link>
+          </div>
+
+          </div>
+          ) : (
+            <h2 className="loading">Cargando...</h2>
+          )}
 
         </div>
-        ) : (
-          <h2>Cargando...</h2>
-        )}
-
-
-
-      </div>
+      </main>
     );
   }
 }

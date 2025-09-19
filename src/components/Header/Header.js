@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import HeaderItems from '../HeaderItems/HeaderItems';
+import FormularioBusqueda from '../SearchForm/SearchForm';
 import "./styles.css";
 
 
@@ -22,7 +23,7 @@ function Header() {
           ))}
         </ul>
     {/* Form de busqueda */}
-        <li> </li>
+        <FormularioBusqueda />
     </nav>  
   )
 }

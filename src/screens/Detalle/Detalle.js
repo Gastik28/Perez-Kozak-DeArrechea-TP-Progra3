@@ -43,74 +43,77 @@ class Detalle extends Component {
     console.log("serie", this.state.SeriesDetalles);
 
     return (
-      <div>
+      <main>
          {this.state.pedidoInicialCompleto ? ( 
-          <div>
-        <h1> 
-          {
-            this.state.type === "movie"
-              ? this.state.MoviesDetalles.original_title:
-              this.state.SeriesDetalles.original_name
-
-          } 
-        </h1>
-
-        {
-          this.state.type === "movie"
-              ? <img  src={`https://image.tmdb.org/t/p/w500${this.state.MoviesDetalles.poster_path}`} alt="" />
-              :
-              <img  src={`https://image.tmdb.org/t/p/w500${this.state.SeriesDetalles.poster_path}`} alt="" />        
-        }
-        <h2>Descripcion</h2>
-        <p>
-          {
-            this.state.type === "movie"
-              ? this.state.MoviesDetalles.overview:
-              this.state.SeriesDetalles.overview
-          }
-        </p>
-        <p>Fecha de estreno:
-          {
-            this.state.type === "movie"
-              ? this.state.MoviesDetalles.release_date
-              :
-              this.state.SeriesDetalles.first_air_date
-
-          }        
-        </p>
-        <p>
-          {
-            this.state.type === "movie"
-              ? "Duracion: " + this.state.MoviesDetalles.runtime + " minutos"
-              :
-              ""
-
-          }     
-        </p>
-        <p>Rating:
-          {
-            this.state.type === "movie"
-              ? this.state.MoviesDetalles.vote_average
-              :
-              this.state.SeriesDetalles.vote_average
-
-          }      
-        </p>
-        <p>Genero:
-          {/* Hacer el loader primero y ver si saco esto porque no se si lo vimos */}
+          <div className="detail-container">
+            <div className="detail-poster">
               {
-              this.state.type === "movie"
-      ? this.state.MoviesDetalles?.genres?.map((genre) => genre.name)
-      : this.state.SeriesDetalles?.genres?.map((genre) => genre.name)
-            }      
-          </p>
-        <button> Favoritos:</button>
+                this.state.type === "movie"
+                    ? <img  src={`https://image.tmdb.org/t/p/w500${this.state.MoviesDetalles.poster_path}`} alt="" />
+                    :
+                    <img  src={`https://image.tmdb.org/t/p/w500${this.state.SeriesDetalles.poster_path}`} alt="" />        
+              }
+            </div>
+            <div className="detail-info">
+              <h1 className="detail-title"> 
+                {
+                  this.state.type === "movie"
+                    ? this.state.MoviesDetalles.original_title:
+                    this.state.SeriesDetalles.original_name
+                } 
+              </h1>
 
-        </div>
+              <p className="detail-overview">
+                {
+                  this.state.type === "movie"
+                    ? this.state.MoviesDetalles.overview:
+                    this.state.SeriesDetalles.overview
+                }
+              </p>
+
+              <div className="detail-meta">
+                <p>Fecha de estreno:
+                  {
+                    this.state.type === "movie"
+                      ? this.state.MoviesDetalles.release_date
+                      :
+                      this.state.SeriesDetalles.first_air_date
+                  }        
+                </p>
+                <p>
+                  {
+                    this.state.type === "movie"
+                      ? "Duracion: " + this.state.MoviesDetalles.runtime + " minutos"
+                      :
+                      ""
+                  }     
+                </p>
+                <p>Rating:
+                  {
+                    this.state.type === "movie"
+                      ? this.state.MoviesDetalles.vote_average
+                      :
+                      this.state.SeriesDetalles.vote_average
+                  }      
+                </p>
+                <p>Genero:
+                  {
+                    this.state.type === "movie"
+                      ? this.state.MoviesDetalles?.genres?.map((genre) => genre.name).join(", ")
+                      : this.state.SeriesDetalles?.genres?.map((genre) => genre.name).join(", ")
+                  }      
+                </p>
+              </div>
+
+              <div className="detail-buttons">
+                <button> Favoritos</button>
+              </div>
+            </div>
+          </div>
         ) : (
-          <h2>Cargando...</h2>
+          <h2 className="loading">Cargando...</h2>
         )}
-      </div>
+      </main>
     );
   }
 }

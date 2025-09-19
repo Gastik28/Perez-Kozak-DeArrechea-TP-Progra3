@@ -35,37 +35,39 @@ class Series extends Component {
   }
   render() {
     return (
-      <div>
-        <h1>
-          {this.state.category === "live-series"
-            ? "All Live Series"
-            : "All Top Rated Series"}
-        </h1>
+      <main>
+        <div className="page-container">
+          <h1 className="page-title">
+            {this.state.category === "live-series"
+              ? "All Live Series"
+              : "All Top Rated Series"}
+          </h1>
 
-        {this.state.category === "live-series" ? (
-          <section className="section_serieaire">
-            {this.state.SeriesAire.map((elm, idx) => (
-              <Card
-                key={idx + elm.original_name}
-                data={elm}
-                css={"card-article-popular-movies"}
-                type={"serie"}
-              />
-            ))}
-          </section>
-        ) : (
-          <section className="section_serieaire">
-            {this.state.SeriesTopRated.map((elm, idx) => (
-              <Card
-                key={idx + elm.original_name}
-                data={elm}
-                css={"card-article-popular-movies"}
-                type={"serie"}
-              />
-            ))}
-          </section>
-        )}
-      </div>
+          {this.state.category === "live-series" ? (
+            <section className="movies-grid">
+              {this.state.SeriesAire.map((elm, idx) => (
+                <Card
+                  key={idx + elm.original_name}
+                  data={elm}
+                  css={"card-article-popular-movies"}
+                  type={"serie"}
+                />
+              ))}
+            </section>
+          ) : (
+            <section className="movies-grid">
+              {this.state.SeriesTopRated.map((elm, idx) => (
+                <Card
+                  key={idx + elm.original_name}
+                  data={elm}
+                  css={"card-article-popular-movies"}
+                  type={"serie"}
+                />
+              ))}
+            </section>
+          )}
+        </div>
+      </main>
     );
   }
 }

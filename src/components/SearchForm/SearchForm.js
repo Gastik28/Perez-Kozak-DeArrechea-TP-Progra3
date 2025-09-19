@@ -18,14 +18,14 @@ class FormularioBusqueda extends Component {
 
   render() {
     return (
-      <form onSubmit={(e) => this.evitarSubmit(e)}>
+      <form className="search-form" onSubmit={(e) => this.evitarSubmit(e)}>
         <label>Buscar:</label>
         <input
           type="text"
           value={this.state.valor}
           onChange={(e) => this.setState({ valor: e.target.value })}
         />
-        <div>
+        <div className="radio-group">
           <label>
             <input
               type="radio"

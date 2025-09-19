@@ -37,14 +37,27 @@ class ResultadosDeBusqueda extends React.Component {
   render(){
     const { tipo, query } = this.props.match.params;
     return (
-      <div>
-        <h1>Resultados ({tipo}) para: {query}</h1>
-        <ul>
-          {this.state.resultados.map(item => (
-            <li key={item.id}>{item.title || item.name}</li>
-          ))}
-        </ul>
-      </div>
+      <main>
+        <div className="search-results">
+          <h1 className="search-query">Resultados ({tipo}) para: {query}</h1>
+          {this.state.resultados.length === 0 ? (
+            <p className="no-results">No se encontraron resultados para tu búsqueda.</p>
+          ) : (
+            <div className="movies-grid">
+              {this.state.resultados.map(item => (
+                <div key={item.id} className="card-article-popular-movies">
+                  <img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt="" />
+                  <h3>{item.title || item.name}</h3>
+                  <div>
+                    <p>{item.overview ? item.overview.substring(0, 100) + '...' : 'Sin descripción disponible'}</p>
+                    <a href={`/detalle/${tipo}/${item.id}`}>Ver detalle</a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </main>
     );
   }
 }

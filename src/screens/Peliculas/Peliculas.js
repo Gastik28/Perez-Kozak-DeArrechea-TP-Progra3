@@ -67,43 +67,44 @@ this.state.category === "popular-movie"
     console.log('pagina', this.state.pageNumber);
     
     return (
-      <div>
-        <h1>
-          {this.state.category === "popular-movie"
-            ? "All Popular Movies"
-            : "All Top Rated Movies"}
-        </h1>
+      <main>
+        <div className="page-container">
+          <h1 className="page-title">
+            {this.state.category === "popular-movie"
+              ? "All Popular Movies"
+              : "All Top Rated Movies"}
+          </h1>
 
-        {this.state.category === "popular-movie" ? (
-          <section className='section_topmovie'>
-            {this.state.MoviesPopular.map((elm, idx) => (
-              <Card
-                key={idx + elm.original_title}
-                data={elm}
-                css={"card-article-popular-movies"}
-                type={"movie"}
-              />
-            ))}
-          </section>
-        ) : (
-          <section className='section_topmovie'>
-            {this.state.MoviesTopRated.map((elm, idx) => (
-              <Card
-                key={idx + elm.original_title}
-                data={elm}
-                css={"card-article-popular-movies"}
-                type={"movie"}
-              />
-            ))}
-          </section>
-        )}
-        <button onClick={()=> this.cargarMas()}>
-            {
-                this.state.textoBoton
-            }
-        </button>
-      </div>
-      
+          {this.state.category === "popular-movie" ? (
+            <section className='movies-grid'>
+              {this.state.MoviesPopular.map((elm, idx) => (
+                <Card
+                  key={idx + elm.original_title}
+                  data={elm}
+                  css={"card-article-popular-movies"}
+                  type={"movie"}
+                />
+              ))}
+            </section>
+          ) : (
+            <section className='movies-grid'>
+              {this.state.MoviesTopRated.map((elm, idx) => (
+                <Card
+                  key={idx + elm.original_title}
+                  data={elm}
+                  css={"card-article-popular-movies"}
+                  type={"movie"}
+                />
+              ))}
+            </section>
+          )}
+          <div style={{textAlign: 'center', marginTop: '2rem'}}>
+            <button className="detail-buttons" onClick={()=> this.cargarMas()}>
+                {this.state.textoBoton}
+            </button>
+          </div>
+        </div>
+      </main>
     );
   }
 }
