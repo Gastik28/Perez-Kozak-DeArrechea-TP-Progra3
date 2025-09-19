@@ -116,7 +116,9 @@ class Home extends Component {
 
           </div>
           ) : (
-            <h2 className="loading">Cargando...</h2>
+            <div className="loading-container">
+            <img src="/GIF/loading.gif" alt="Cargando..." className="loading-gif" />                      <h2 className="loading">Cargando...</h2>
+          </div>
           )}
 
         </div>
