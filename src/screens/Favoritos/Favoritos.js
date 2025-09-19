@@ -29,7 +29,9 @@ class Favoritos extends Component {
         series = JSON.parse(seriesRaw)
       }
 
-    this.setState({ favoriteMovies: movies, favoriteSeries: series })
+    this.setState({ 
+      favoriteMovies: movies, 
+      favoriteSeries: series })
   }
 
   removeFavorite = (type, id) => {

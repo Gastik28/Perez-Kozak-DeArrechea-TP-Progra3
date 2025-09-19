@@ -23,32 +23,36 @@ class Card extends Component {
   agregarFav(){
     const { data, type } = this.props
     const storageKey = type === 'movie' ? 'favoriteMovies' : 'favoriteSeries'
-    
+    const currentId = data.id; // Solo el ID
+
     let recuperoFav = localStorage.getItem(storageKey)
     
     if(recuperoFav == null){
-      let fav = [data]
-      let favString = JSON.stringify(fav)
-      localStorage.setItem(storageKey, favString)
+      let fav = [currentId]
+      localStorage.setItem(storageKey, JSON.stringify(fav))
     } else {
       let favParceado = JSON.parse(recuperoFav)
-      favParceado.push(data)
-      let favString = JSON.stringify(favParceado)
-      localStorage.setItem(storageKey, favString)
+     
+      if (!favParceado.includes(currentId)) {
+        favParceado.push(currentId);
+        localStorage.setItem(storageKey, JSON.stringify(favParceado));
+      }
     }
     this.setState({ esFav: true })
   }
 
   sacaFav(){
-    const { data, type } = this.props
+    const { data, type } = this.props;
     const storageKey = type === 'movie' ? 'favoriteMovies' : 'favoriteSeries'
-    
+    const currentId = data.id;
+
     let recuperoFav = localStorage.getItem(storageKey)
-    let favParceado = JSON.parse(recuperoFav)
     
-    let filter = favParceado.filter(elm => elm.id !== data.id)
-    let favString = JSON.stringify(filter)
-    localStorage.setItem(storageKey, favString)
+    if(recuperoFav) {
+       let favParceado = JSON.parse(recuperoFav)
+       let filter = favParceado.filter((elm) => elm !== currentId); 
+       localStorage.setItem(storageKey, JSON.stringify(filter));
+  }
     
     this.setState({ esFav: false })
   }
@@ -56,13 +60,14 @@ class Card extends Component {
   componentDidMount(){
     const { data, type } = this.props
     const storageKey = type === 'movie' ? 'favoriteMovies' : 'favoriteSeries'
-    
+    const currentId = data.id; 
+
     let recuperoFav = localStorage.getItem(storageKey)
     
     if(recuperoFav){
       let favParceado = JSON.parse(recuperoFav)
-      if(favParceado.some(elm => elm.id === data.id)){
-        this.setState({ esFav: true })
+      if (favParceado.includes(currentId)) {
+        this.setState({ esFav: true });
       }
     }
   }

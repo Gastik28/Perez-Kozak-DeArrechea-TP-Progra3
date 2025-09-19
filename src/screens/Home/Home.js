@@ -54,6 +54,8 @@ class Home extends Component {
       fetch(urlSeriesAire)
       .then((resp) => resp.json())
       .then((data) => {        
+        console.log("Data",data);
+        
         this.setState({
           SeriesAire: data.results,
         });
@@ -80,6 +82,7 @@ class Home extends Component {
 
 
   render() {    
+    console.log("seriesAire", this.state.SeriesAire);
     
     return (
       <main>

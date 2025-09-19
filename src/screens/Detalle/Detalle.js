@@ -9,7 +9,8 @@ class Detalle extends Component {
       type: props.match.params.type,
       MoviesDetalles: [],
       SeriesDetalles: [],
-      pedidoInicialCompleto: false // Nuevo estado para controlar la carga
+      pedidoInicialCompleto: false// Nuevo estado para controlar la carga
+      
     };
   }
   componentDidMount() {
@@ -24,6 +25,7 @@ class Detalle extends Component {
                 MoviesDetalles: data,
                 pedidoInicialCompleto: true // Marcar como completo cuando se recibe la data
               });
+              this.checkIfFavorite();
             })
         : fetch(
             `https://api.themoviedb.org/3/tv/${this.props.match.params.id}?api_key=${apikey}`
@@ -34,9 +36,64 @@ class Detalle extends Component {
                 SeriesDetalles: data,
                 pedidoInicialCompleto: true 
               });
+              this.checkIfFavorite();
             });
     }
   }
+
+  checkIfFavorite(){
+    const storageKey = this.state.type === "movie" ? "favoriteMovies" : "favoriteSeries";
+  const currentId = this.state.id;   
+
+  let recuperoFav = localStorage.getItem(storageKey);
+
+  if (recuperoFav) {
+    let favParceado = JSON.parse(recuperoFav);
+    if (favParceado.includes(currentId)) {
+      this.setState({ esFav: true });
+      }
+    }
+  }
+
+  agregarFav(){
+    const storageKey = this.state.type === "movie" ? "favoriteMovies" : "favoriteSeries";
+    const currentId = this.state.id; // Solo el ID
+  
+    let recuperoFav = localStorage.getItem(storageKey);
+  
+    if (recuperoFav == null) {
+      // Si no hay favoritos, crea un array con el ID actual
+      let fav = [currentId];
+      localStorage.setItem(storageKey, JSON.stringify(fav));
+    } else {
+      // Si ya hay favoritos, agrega el ID actual
+      let favParceado = JSON.parse(recuperoFav);
+      if (!favParceado.includes(currentId)) {
+        favParceado.push(currentId);
+        localStorage.setItem(storageKey, JSON.stringify(favParceado));
+      }
+    }
+  
+    this.setState({ esFav: true });
+  }
+  
+
+  sacaFav(){
+    const storageKey = this.state.type === "movie" ? "favoriteMovies" : "favoriteSeries";
+  const currentId = this.state.id; // Solo el ID
+
+  let recuperoFav = localStorage.getItem(storageKey);
+
+  if (recuperoFav) {
+    let favParceado = JSON.parse(recuperoFav);
+    // Filtra el ID actual
+    let filter = favParceado.filter((elm) => elm !== currentId);
+    localStorage.setItem(storageKey, JSON.stringify(filter));
+  }
+
+  this.setState({ esFav: false });
+  }
+
 
   render() {
     console.log("Movie", this.state.MoviesDetalles);
@@ -44,69 +101,66 @@ class Detalle extends Component {
 
     return (
       <main>
-         {this.state.pedidoInicialCompleto ? ( 
+        {this.state.pedidoInicialCompleto ? (
           <div className="detail-container">
             <div className="detail-poster">
-              {
-                this.state.type === "movie"
-                    ? <img  src={`https://image.tmdb.org/t/p/w500${this.state.MoviesDetalles.poster_path}`} alt="" />
-                    :
-                    <img  src={`https://image.tmdb.org/t/p/w500${this.state.SeriesDetalles.poster_path}`} alt="" />        
-              }
-            </div>
-            <div className="detail-info">
-              <h1 className="detail-title"> 
-                {
+              <img
+                src={
                   this.state.type === "movie"
-                    ? this.state.MoviesDetalles.original_title:
-                    this.state.SeriesDetalles.original_name
-                } 
+                    ? `https://image.tmdb.org/t/p/w500${this.state.MoviesDetalles?.poster_path}`
+                    : `https://image.tmdb.org/t/p/w500${this.state.SeriesDetalles?.poster_path}`
+                }
+                alt=""
+              />
+            </div>
+
+            <div className="detail-info">
+              <h1 className="detail-title">
+                {this.state.type === "movie"
+                  ? this.state.MoviesDetalles?.original_title
+                  : this.state.SeriesDetalles?.original_name}
               </h1>
 
               <p className="detail-overview">
-                {
-                  this.state.type === "movie"
-                    ? this.state.MoviesDetalles.overview:
-                    this.state.SeriesDetalles.overview
-                }
+                {this.state.type === "movie"
+                  ? this.state.MoviesDetalles?.overview
+                  : this.state.SeriesDetalles?.overview}
               </p>
 
               <div className="detail-meta">
-                <p>Fecha de estreno:
-                  {
-                    this.state.type === "movie"
-                      ? this.state.MoviesDetalles.release_date
-                      :
-                      this.state.SeriesDetalles.first_air_date
-                  }        
-                </p>
                 <p>
-                  {
-                    this.state.type === "movie"
-                      ? "Duracion: " + this.state.MoviesDetalles.runtime + " minutos"
-                      :
-                      ""
-                  }     
+                  Fecha de estreno:{" "}
+                  {this.state.type === "movie"
+                    ? this.state.MoviesDetalles?.release_date
+                    : this.state.SeriesDetalles?.first_air_date}
                 </p>
-                <p>Rating:
-                  {
-                    this.state.type === "movie"
-                      ? this.state.MoviesDetalles.vote_average
-                      :
-                      this.state.SeriesDetalles.vote_average
-                  }      
+
+                {this.state.type === "movie" ? (
+                  <p>Duración: {this.state.MoviesDetalles?.runtime} minutos</p>
+                ) : null}
+
+                <p>
+                  Rating:{" "}
+                  {this.state.type === "movie"
+                    ? this.state.MoviesDetalles?.vote_average
+                    : this.state.SeriesDetalles?.vote_average}
                 </p>
-                <p>Genero:
-                  {
-                    this.state.type === "movie"
-                      ? this.state.MoviesDetalles?.genres?.map((genre) => genre.name).join(", ")
-                      : this.state.SeriesDetalles?.genres?.map((genre) => genre.name).join(", ")
-                  }      
+
+                <p>
+                  Género:{" "}
+                  {(this.state.type === "movie"
+                    ? this.state.MoviesDetalles?.genres
+                    : this.state.SeriesDetalles?.genres
+                  )?.map((g) => g.name).join(", ")}
                 </p>
               </div>
 
               <div className="detail-buttons">
-                <button> Favoritos</button>
+                {this.state.esFav ? (
+                  <button onClick={() => this.sacaFav()}>Sacar de favoritos</button>
+                ) : (
+                  <button onClick={() => this.agregarFav()}>Agregar a favoritos</button>
+                )}
               </div>
             </div>
           </div>
@@ -119,3 +173,6 @@ class Detalle extends Component {
 }
 
 export default Detalle;
+
+
+
