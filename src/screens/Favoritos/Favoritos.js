@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Card from '../../components/Card/Card'
+import Card from '../../components/Card/Card';
+import "./styles.css";
 
 const apikey = "66374e925f9ce0061d8e10191732f374";
 
@@ -23,17 +24,17 @@ class Favoritos extends Component {
     let favParceadoMovies = JSON.parse(recuperoFavMovies);
     let favMovies = [];
 
-    if (favParceadoMovies) {
+    if (favParceadoMovies && favParceadoMovies.length > 0) {
       favParceadoMovies.map((elm) =>
         fetch(`https://api.themoviedb.org/3/movie/${elm}?api_key=${apikey}`)
           .then((resp) => resp.json())
           .then((data) => {
             favMovies.push(data);
-            this.setState({
-              favoriteMovies: favMovies,
-            });
+            this.setState({ favoriteMovies: favMovies });
           })
       );
+    } else {
+      this.setState({ favoriteMovies: [] });
     }
 
     // Series
@@ -41,17 +42,17 @@ class Favoritos extends Component {
     let favParceadoSeries = JSON.parse(recuperoFavSeries);
     let favSeries = [];
 
-    if (favParceadoSeries) {
+    if (favParceadoSeries && favParceadoSeries.length > 0) {
       favParceadoSeries.map((elm) =>
         fetch(`https://api.themoviedb.org/3/tv/${elm}?api_key=${apikey}`)
           .then((resp) => resp.json())
           .then((data) => {
             favSeries.push(data);
-            this.setState({
-              favoriteSeries: favSeries,
-            });
+            this.setState({ favoriteSeries: favSeries });
           })
       );
+    } else {
+      this.setState({ favoriteSeries: [] });
     }
   }
 
@@ -75,7 +76,7 @@ class Favoritos extends Component {
               <p className="favorites-empty">No hay películas favoritas.</p>
             ) : (
               this.state.favoriteMovies.map((item) =>
-                <Card key={item.id} data={item} type="movie" />
+                <Card key={item.id} data={item} type="movie" onClick={() => this.refrescar()} />
               )
             )}
           </section>
@@ -86,7 +87,7 @@ class Favoritos extends Component {
               <p className="favorites-empty">No hay series favoritas.</p>
             ) : (
               this.state.favoriteSeries.map((item) =>
-                <Card key={item.id} data={item} type="tv" />
+                <Card key={item.id} data={item} type="tv" onClick={() => this.refrescar()} />
               )
             )}
           </section>

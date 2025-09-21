@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./styles.css";
 const apikey = "66374e925f9ce0061d8e10191732f374";
 
 class Detalle extends Component {
@@ -49,7 +50,7 @@ class Detalle extends Component {
 
   if (recuperoFav) {
     let favParceado = JSON.parse(recuperoFav);
-    if (favParceado.includes(currentId)) {
+    if (favParceado.includes(Number(currentId))) {
       this.setState({ esFav: true });
       }
     }
@@ -88,7 +89,7 @@ class Detalle extends Component {
   if (recuperoFav) {
     let favParceado = JSON.parse(recuperoFav);
     // Filtra el ID actual
-    let filter = favParceado.filter((elm) => elm !== currentId);
+    let filter = favParceado.filter((elm) => elm != currentId);
     localStorage.setItem(storageKey, JSON.stringify(filter));
   }
 

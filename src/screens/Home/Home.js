@@ -4,6 +4,7 @@ import PopularMovies from "../../components/PopularMovies/PopularMovies";
 import TopRatedMovies from "../../components/TopRatedMovies/TopRatedMovies";
 import SeriesAire from "../../components/SeriesAire/SeriesAire";
 import TopRatedSeries from "../../components/TopRatedSeries/TopRatedSeries";
+import "./styles.css";
 
 const apikey = "66374e925f9ce0061d8e10191732f374";
 const urlPopMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${apikey}`;

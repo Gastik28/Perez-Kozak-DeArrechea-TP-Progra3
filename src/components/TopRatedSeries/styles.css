@@ -1,6 +1,15 @@
-.section_topseries{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+/* TOP RATED SERIES STYLES */
+.section_topseries {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section_topseries {
+    justify-content: center;
+  }
 }

@@ -1,0 +1,35 @@
+/* HOME PAGE STYLES */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.content-section {
+  background-color: transparent;
+  padding: 2rem 0;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.section-title {
+  font-size: 24px;
+  margin-bottom: 1.5rem;
+  color: white;
+  border-bottom: 3px solid #E50914;
+  padding-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.section-link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #E50914;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.section-link:hover {
+  text-decoration: underline;
+}

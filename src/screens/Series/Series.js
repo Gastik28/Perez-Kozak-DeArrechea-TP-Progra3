@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Card from "../../components/Card/Card";
+import "./styles.css";
 const apikey = "66374e925f9ce0061d8e10191732f374";
 
 class Series extends Component {

@@ -9,7 +9,6 @@ class Card extends Component {
     this.state={
       verMas: false,
       esFav: false, 
-      borrada: false 
     }
 
   }
@@ -59,7 +58,8 @@ class Card extends Component {
        localStorage.setItem(storageKey, JSON.stringify(filter));
   }
     
-    this.setState({ esFav: false, borrada: true })
+    this.setState({ esFav: false})
+    if (this.props.onClick) this.props.onClick();  //esto es para refrescar en /favoritos
   }
 
   componentDidMount(){
@@ -80,9 +80,6 @@ class Card extends Component {
 
 
   render() {    
-    
-    if (this.state.borrada) return null; // si se elimino no se renderiza
-
     return (
       <article className={this.props.css ? this.props.css : "card-article"}>
         {/* Imagen */}
