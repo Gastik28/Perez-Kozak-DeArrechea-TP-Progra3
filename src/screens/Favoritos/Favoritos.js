@@ -37,19 +37,60 @@ class Favoritos extends Component {
             FavMovies.push(data);
             this.setState(
               {
-                movies: FavMovies, // a movies le metemos todas las movies favoritas
+                favoriteMovies: FavMovies, // a favoritemovies le metemos todas las movies favoritas
               },
              
             );
           })
       );
     }
+
+    // Series
+    if (SeriesParce) {
+      SeriesParce.map((elm)=>
+        fetch(`https://api.themoviedb.org/3/tv/${elm}?api_key=${apikey}`)
+          .then((resp)=> resp.json())
+          .then((data)=> {
+            FavSeries.push(data);
+            this.setState(
+              {
+                favoriteSeries: FavSeries // a favoriteSeries le metemos todas las series favoritas
+              }
+            )
+          })
+      )
+    }
+  }
+      
+
+
+  removeFavorite = (type, id) => {
+    if (type === "movie") {
+      const updated = this.state.favoriteMovies.filter(
+        (item) => item.id !== id
+      );
+      localStorage.setItem("favoriteMovies", JSON.stringify(updated));
+      this.setState({ favoriteMovies: updated });
+    } else {
+      const updated = this.state.favoriteSeries.filter(
+        (item) => item.id !== id
+      );
+      localStorage.setItem("favoriteSeries", JSON.stringify(updated));
+      this.setState({ favoriteSeries: updated });
+    }
+  };
+  borrarTodos() {
+    localStorage.setItem("favoriteMovies", JSON.stringify([]));
+    localStorage.setItem("favoriteSeries", JSON.stringify([]));
+    this.setState({ favoriteMovies: [], favoriteSeries: [] });
   }
 
  
 
   render() {
-    console.log('Favortias movies',this.state.movies)
+    console.log('movies',this.state.movies)
+    console.log('Fav movies',this.state.favoriteMovies)
+
     return (
       <main>
         <div className="favorites-container">
@@ -66,26 +107,26 @@ class Favoritos extends Component {
               ) : <p className="favorites-empty">No hay películas favoritas.</p>
 
           }
-
-            
+          
           </section>
 
           <h2 className="section-title">Series favoritas</h2>
           <section className="movies-grid">
-            {this.state.favoriteSeries.length === 0 ? (
-              <p className="favorites-empty">No hay series favoritas.</p>
-            ) : (
-              this.state.favoriteSeries.map((item) =>
-                this.renderItem(item, "tv")
-              )
-            )}
+            
+            {
+            this.state.favoriteSeries.length > 0 ? this.state.favoriteSeries.map((elm) => 
+                (
+                <Card data={elm} css={"card-article-popular-movies"} type={"series"}/>
+                )
+              ) : <p className="favorites-empty">No hay series favoritas.</p>
+
+          }
+
           </section>
 
-          <div
-            className="detail-buttons"
-            style={{ marginTop: "2rem", justifyContent: "center" }}
-          >
-           
+          <div className="detail-buttons"style={{ marginTop: "2rem", justifyContent: "center" }}>
+            <button onClick={() => this.refrescar()}>Refrescar</button>
+            <button onClick={() => this.borrarTodos()}>Borrar todos</button>
           </div>
         </div>
       </main>
