@@ -8,7 +8,7 @@ class Card extends Component {
     super(props);
     this.state={
       verMas: false,
-      esFav: false, ////////
+      esFav: false, 
     }
 
   }
@@ -19,7 +19,6 @@ class Card extends Component {
       verMas: !this.state.verMas,
     })
   }
-////////////
   agregarFav(){
     const { data, type } = this.props
     const storageKey = type === 'movie' ? 'favoriteMovies' : 'favoriteSeries'
