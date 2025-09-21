@@ -65,7 +65,8 @@ class Detalle extends Component {
       // Si no hay favoritos, crea un array con el ID actual
       let fav = [currentId];
       localStorage.setItem(storageKey, JSON.stringify(fav));
-    } else {
+    } 
+    else {
       // Si ya hay favoritos, agrega el ID actual
       let favParceado = JSON.parse(recuperoFav);
       if (!favParceado.includes(currentId)) {
