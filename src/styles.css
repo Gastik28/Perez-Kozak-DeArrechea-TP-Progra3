@@ -16,6 +16,24 @@ body {
 }
 
 /* HEADER */
+
+.header-title{
+position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #000000;
+  margin: 0;
+  padding: 1rem 2rem;
+  font-size: 20px;
+  font-weight: bold;
+  z-index: 1001; 
+}
+.header-title a {
+ color: #ff0000;
+  text-decoration: none;  
+}
+
 nav {
   display: flex;
   justify-content: space-between;
@@ -24,12 +42,15 @@ nav {
   color: white;
   padding: 1rem 2rem;
   position: fixed;
-  top: 0;
+  top: 48px;
   left: 0;
   right: 0;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
+
+
+
 
 nav li:first-child {
   font-size: 1.8rem;
@@ -110,7 +131,6 @@ main {
   background-color: transparent;
   padding: 0;
   border: none;
-  max-width: 400px;
   margin: 0;
 }
 
@@ -541,5 +561,5 @@ main {
 .loading-gif {
   width: 200px; 
   height: 200px; 
-  margin-bottom: 20px;
+  margin-top: 120px;
 }

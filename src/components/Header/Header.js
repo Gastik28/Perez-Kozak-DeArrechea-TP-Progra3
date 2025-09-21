@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import HeaderItems from '../HeaderItems/HeaderItems';
 import FormularioBusqueda from '../SearchForm/SearchForm';
 import "./styles.css";
@@ -9,13 +10,14 @@ function Header() {
     {name: 'Home', link: '/'},
     {name: 'Peliculas', link: '/movies'},
     {name: 'Series', link: '/series'},
-    {name: 'favoritas', link: '/favorites'}
+    {name: 'Favoritas', link: '/favorites'}
   ]
 
   return (
-<nav>
-  {/* Titulo */}
-        <li> Far far Away Movies </li>
+  <React.Fragment>
+      {/* Titulo */}
+      <h1 className='header-title'><Link to={'/'}>Far far Away Movies</Link></h1>
+    <nav>
   {/* Nav Items */}
         <ul> 
           {navItems.map((elm,idx) => (
@@ -25,6 +27,9 @@ function Header() {
     {/* Form de busqueda */}
         <FormularioBusqueda />
     </nav>  
+    
+  </React.Fragment>
+
   )
 }
 
