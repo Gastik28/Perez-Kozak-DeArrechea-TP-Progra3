@@ -25,17 +25,22 @@ class Card extends Component {
     const currentId = data.id; // Solo el ID
 
     let recuperoFav = localStorage.getItem(storageKey)
-    
+
+    // Que pasa cuando el Local Storage esta vacio
     if(recuperoFav == null){
       let fav = [currentId]
       localStorage.setItem(storageKey, JSON.stringify(fav))
-    } else {
-      let favParceado = JSON.parse(recuperoFav)
+    } 
+    
+    // Que pasa cuando el local storage ya tiene algo
+    else {
+      let favParceado = JSON.parse(recuperoFav) //lo que existe en el localStorage lo paso a un array
      
       if (!favParceado.includes(currentId)) {
         favParceado.push(currentId);
         localStorage.setItem(storageKey, JSON.stringify(favParceado));
       }
+      
     }
     this.setState({ esFav: true })
   }
