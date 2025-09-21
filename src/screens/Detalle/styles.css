@@ -1,13 +1,12 @@
-/* DETALLE PAGE STYLES */
 .detail-container {
   background-color: transparent;
-  padding: 2rem 0;
+  padding: 32px 0;
   display: flex;
-  gap: 2rem;
+  gap: 32px;
 }
 
 .detail-poster {
-  flex: 0 0 300px;
+  width: 300px;
 }
 
 .detail-poster img {
@@ -17,63 +16,61 @@
 }
 
 .detail-info {
-  flex: 1;
+  width: 100%;
 }
 
 .detail-title {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 40px;
+  margin-bottom: 16px;
   color: white;
   font-weight: bold;
 }
 
 .detail-overview {
-  font-size: 1.1rem;
+  font-size: 18px;
   line-height: 1.6;
   color: #ccc;
-  margin-bottom: 1.5rem;
+  margin-bottom: 24px;
 }
 
 .detail-meta {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  gap: 8px;
+  margin-bottom: 24px;
 }
 
 .detail-meta p {
-  font-size: 1rem;
+  font-size: 16px;
   color: #ccc;
 }
 
 .detail-buttons {
   display: flex;
-  gap: 1rem;   
+  gap: 16px;
 }
 
 .detail-buttons button {
   background-color: #E50914;
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
+  padding: 12px 24px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 .detail-buttons button:hover {
   background-color: #f40612;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .detail-container {
     flex-direction: column;
   }
   
   .detail-poster {
-    flex: none;
-    max-width: 300px;
+    width: 300px;
     margin: 0 auto;
   }
 }

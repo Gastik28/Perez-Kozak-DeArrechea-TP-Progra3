@@ -1,13 +1,11 @@
-/* TOP RATED MOVIES STYLES */
 .section_topmovie {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  gap: 1rem;
+  gap: 16px;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .section_topmovie {
     justify-content: center;

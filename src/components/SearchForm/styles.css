@@ -1,9 +1,8 @@
-/* SEARCH FORM STYLES */
 .search-form {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1rem;
+  gap: 16px;
   background-color: transparent;
   padding: 0;
   border: none;
@@ -18,11 +17,11 @@
 }
 
 .search-form input[type="text"] {
-  padding: 0.5rem;
+  padding: 8px;
   border: 1px solid #666;
   border-radius: 0;
-  font-size: 1rem;
-  flex: 1;
+  font-size: 16px;
+  width: 200px;
   background-color: #000;
   color: white;
 }
@@ -34,13 +33,13 @@
 
 .radio-group {
   display: flex;
-  gap: 1rem;
+  gap: 16px;
 }
 
 .radio-group label {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   font-weight: normal;
   cursor: pointer;
   margin-bottom: 0;
@@ -50,11 +49,11 @@
 .search-form input[type="submit"] {
   background-color: #E50914;
   color: white;
-  padding: 0.5rem 1rem;
+  padding: 8px 16px;
   border: none;
   border-radius: 0;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 16px;
   white-space: nowrap;
 }
 
@@ -62,23 +61,22 @@
   background-color: #f40612;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .search-form {
     flex-direction: column;
     align-items: stretch;
-    gap: 0.5rem;
+    gap: 8px;
     max-width: 100%;
   }
   
   .search-form input[type="text"] {
-    flex: none;
+    width: 100%;
   }
 }
 
 @media (max-width: 480px) {
   .radio-group {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 8px;
   }
 }

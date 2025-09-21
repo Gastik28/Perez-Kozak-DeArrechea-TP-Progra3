@@ -1,26 +1,25 @@
-/* PAGE NOT FOUND STYLES */
 .not-found {
   text-align: center;
-  padding: 3rem 0;
+  padding: 48px 0;
   background-color: transparent;
 }
 
 .not-found h1 {
-  font-size: 3rem;
+  font-size: 48px;
   color: #e74c3c;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 .not-found p {
-  font-size: 1.2rem;
+  font-size: 19px;
   color: #666;
-  margin-bottom: 2rem;
+  margin-bottom: 32px;
 }
 
 .not-found a {
   color: #007bff;
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 18px;
 }
 
 .not-found a:hover {

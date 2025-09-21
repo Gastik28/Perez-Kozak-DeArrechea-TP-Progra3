@@ -1,12 +1,11 @@
-/* FAVORITOS PAGE STYLES */
 .favorites-container {
   background-color: transparent;
-  padding: 2rem 0;
+  padding: 32px 0;
 }
 
 .favorites-empty {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 19px;
   color: #666;
-  padding: 3rem;
+  padding: 48px;
 }

@@ -1,9 +1,10 @@
-/* LOADING STYLES */
+
+
 .loading {
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 24px;
   color: #999;
-  padding: 3rem;
+  padding: 48px;
 }
 
 .loading-container {
