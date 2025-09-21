@@ -105,4 +105,3 @@ class Favoritos extends Component {
 }
 
 export default Favoritos;
-export default Favoritos;
