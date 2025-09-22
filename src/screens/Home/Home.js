@@ -4,6 +4,7 @@ import PopularMovies from "../../components/PopularMovies/PopularMovies";
 import TopRatedMovies from "../../components/TopRatedMovies/TopRatedMovies";
 import SeriesAire from "../../components/SeriesAire/SeriesAire";
 import TopRatedSeries from "../../components/TopRatedSeries/TopRatedSeries";
+import FilterForm from "../../components/FilterForm/FilterForm";
 import "./styles.css";
 import "../../components/Loading/styles.css"
 
@@ -24,7 +25,12 @@ class Home extends Component {
       SeriesAire: [],
       SeriesTopRated: [],
       Categories: ['popular-movie', 'top-rated-movie', 'live-series', 'top-rated-series'],
-      pedidoInicialCompleto: false
+      pedidoInicialCompleto: false,
+      // Datos originales para el filtrado
+      originalMoviesPopular: [],
+      originalMoviesTopRated: [],
+      originalSeriesAire: [],
+      originalSeriesTopRated: []
     };
   }
 
@@ -37,6 +43,7 @@ class Home extends Component {
       .then((data) => {
         this.setState({
           MoviesPopular: data.results,
+          originalMoviesPopular: data.results,
         });
       })
       .catch((error) => console.log("Error Fetch", error));
@@ -48,6 +55,7 @@ class Home extends Component {
         console.log("Data",data);
         this.setState({
           MoviesTopRated: data.results,
+          originalMoviesTopRated: data.results,
         });
       })
       .catch((error) => console.log("Error Fetch", error));
@@ -60,6 +68,7 @@ class Home extends Component {
         
         this.setState({
           SeriesAire: data.results,
+          originalSeriesAire: data.results,
         });
       })
       .catch((error) => console.log("Error Fetch", error));
@@ -70,6 +79,7 @@ class Home extends Component {
       .then((data) => {
         this.setState({
           SeriesTopRated: data.results,
+          originalSeriesTopRated: data.results,
         });
       })
       .catch((error) => console.log("Error Fetch", error));
@@ -81,7 +91,44 @@ class Home extends Component {
   }, 1000);
   
   }
+  
+  filtrarContenido(textoAFiltrar) {
+    console.log('textoAFiltrar', textoAFiltrar)
+    
+    if (textoAFiltrar.trim() === '') {
+      this.setState({
+        MoviesPopular: this.state.originalMoviesPopular,
+        MoviesTopRated: this.state.originalMoviesTopRated,
+        SeriesAire: this.state.originalSeriesAire,
+        SeriesTopRated: this.state.originalSeriesTopRated
+      });
+      return;
+    }
 
+    const peliculasPopularesFiltradas = this.state.originalMoviesPopular.filter(
+      (elm) => elm.title.toLowerCase().includes(textoAFiltrar.toLowerCase())
+    );
+    
+    const peliculasTopRatedFiltradas = this.state.originalMoviesTopRated.filter(
+      (elm) => elm.title.toLowerCase().includes(textoAFiltrar.toLowerCase())
+    );
+    
+    const seriesAireFiltradas = this.state.originalSeriesAire.filter(
+      (elm) => elm.name.toLowerCase().includes(textoAFiltrar.toLowerCase())
+    );
+    
+    const seriesTopRatedFiltradas = this.state.originalSeriesTopRated.filter(
+      (elm) => elm.name.toLowerCase().includes(textoAFiltrar.toLowerCase())
+    );
+    
+    console.log(peliculasPopularesFiltradas.length)
+    this.setState({
+      MoviesPopular: peliculasPopularesFiltradas,
+      MoviesTopRated: peliculasTopRatedFiltradas,
+      SeriesAire: seriesAireFiltradas,
+      SeriesTopRated: seriesTopRatedFiltradas
+    });
+  }
 
   render() {    
     console.log("seriesAire", this.state.SeriesAire);
@@ -91,6 +138,8 @@ class Home extends Component {
         <div className="home-container">
           {this.state.pedidoInicialCompleto ? (
             <div>
+          
+          <FilterForm filtrar={(textoAFiltrar) => this.filtrarContenido(textoAFiltrar)} />
           
           <div className="content-section">
             <h1 className="section-title">Peliculas Populares</h1>

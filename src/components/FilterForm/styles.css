@@ -1,0 +1,54 @@
+.filter-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    background-color: transparent;
+    padding: 32px 0;
+    border: none;
+    margin: 0;
+    justify-content: center;
+}
+
+.filter-form input {
+    padding: 8px;
+    border: 1px solid #666;
+    border-radius: 0;
+    font-size: 16px;
+    width: 300px;
+    background-color: #000;
+    color: white;
+}
+
+.filter-form input:focus {
+    outline: none;
+    border-color: #E50914;
+}
+
+.filter-form button {
+    background-color: #E50914;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+.filter-form button:hover {
+    background-color: #f40612;
+}
+
+@media (max-width: 768px) {
+    .filter-form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        max-width: 100%;
+    }
+    
+    .filter-form input {
+        width: 100%;
+    }
+}
