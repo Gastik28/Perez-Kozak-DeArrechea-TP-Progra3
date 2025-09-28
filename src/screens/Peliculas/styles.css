@@ -21,8 +21,29 @@
   justify-content: flex-start;
 }
 
+.detail-buttons {
+  background-color: #E50914;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.detail-buttons:hover {
+  background-color: #f40612;
+}
+
 @media (max-width: 768px) {
   .movies-grid {
     justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .detail-buttons {
+    flex-direction: column;
   }
 }
