@@ -5,6 +5,8 @@ import './styles.css'
  class PopularMovies extends Component {
     
   render() {
+console.log("props",this.props);
+    
     return (
         <section className='section_popmovie'>
             {

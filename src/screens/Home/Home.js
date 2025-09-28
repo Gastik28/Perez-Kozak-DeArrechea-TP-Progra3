@@ -33,8 +33,9 @@ class Home extends Component {
     
     // Popular Movies
     fetch(urlPopMovies)
-      .then((resp) => resp.json())
+      .then((resp) => resp.json()) //Formato Json
       .then((data) => {
+        
         this.setState({
           MoviesPopular: data.results,
         });
@@ -75,7 +76,8 @@ class Home extends Component {
       .catch((error) => console.log("Error Fetch", error));
       
       
-      // Marcar como completo cuando terminen todos los fetch
+      // Marcar como completo cuando terminen todos los fetch. La funcion se va a ejecutar luego de 1 segundo
+      //Luego de que se complete la llamada a la API el estado del componente se actualiza 
    setTimeout(() => {
     this.setState({ pedidoInicialCompleto: true });
   }, 1000);
@@ -84,11 +86,11 @@ class Home extends Component {
 
 
   render() {    
-    console.log("seriesAire", this.state.SeriesAire);
     
     return (
       <main>
         <div className="home-container">
+
           {this.state.pedidoInicialCompleto ? (
             <div>
           

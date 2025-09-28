@@ -6,8 +6,7 @@ class Peliculas extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // Recuperando la categoria de la URL
-      category: this.props.match.params.category,
+      category: this.props.match.params.category, // Recuperando la categoria de la URL
       MoviesPopular: [],
       MoviesTopRated: [],
       textoBoton: "Cargar más peliculas",
@@ -17,23 +16,27 @@ class Peliculas extends Component {
   componentDidMount() {
     {
       this.state.category === "popular-movie"
-        ? fetch( `https://api.themoviedb.org/3/movie/popular?api_key=${apikey}`)
+        ? 
+        // Popular Movies Fetch 
+        fetch( `https://api.themoviedb.org/3/movie/popular?api_key=${apikey}`)
             .then((resp) => resp.json())
             .then((data) => {
             console.log("Data",data.total_pages);
 
               this.setState({
                 MoviesPopular: data.results,
-                pageNumber: this.state.pageNumber + 1
+                pageNumber: this.state.pageNumber + 1 //Sumamos una pagina
 
               });
             })
-        : fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apikey}`)
+        : 
+        // Top Rated Movies Fetch 
+        fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apikey}`)
             .then((resp) => resp.json())
             .then((data) => {
               this.setState({
                 MoviesTopRated: data.results,
-                pageNumber: this.state.pageNumber + 1
+                pageNumber: this.state.pageNumber + 1 //Sumamos una pagina
 
               });
             });
@@ -42,17 +45,20 @@ class Peliculas extends Component {
 
  cargarMas(){
 this.state.category === "popular-movie"
-        ? fetch( `https://api.themoviedb.org/3/movie/popular?page=${this.state.pageNumber}&api_key=${apikey}`)
+        ? 
+        // Hacemos un Fetch de las nuevas 20 peliculas que trae la proxima pagina
+        fetch( `https://api.themoviedb.org/3/movie/popular?page=${this.state.pageNumber}&api_key=${apikey}`)
             .then((resp) => resp.json())
             .then((data) => {
             console.log("Data",data.total_pages);
 
               this.setState({
-                MoviesPopular: this.state.MoviesPopular.concat(data.results), //Concateno los nuevos productos con los viejos
+                MoviesPopular: this.state.MoviesPopular.concat(data.results), //Concateno las nuevos peliuclas con las que ya estan en MoviesPopular
                 pageNumber: this.state.pageNumber + 1
               });
             })
-        : fetch(`https://api.themoviedb.org/3/movie/top_rated?page=${this.state.pageNumber}&api_key=${apikey}`)
+        : 
+        fetch(`https://api.themoviedb.org/3/movie/top_rated?page=${this.state.pageNumber}&api_key=${apikey}`)
             .then((resp) => resp.json())
             .then((data) => {
               this.setState({
@@ -70,12 +76,14 @@ this.state.category === "popular-movie"
     return (
       <main>
         <div className="page-container">
+          {/* h1 */}
           <h1 className="page-title">
             {this.state.category === "popular-movie"
               ? "All Popular Movies"
               : "All Top Rated Movies"}
           </h1>
-
+          
+          {/* Cards */}
           {this.state.category === "popular-movie" ? (
             <section className='movies-grid'>
               {this.state.MoviesPopular.map((elm, idx) => (
@@ -100,6 +108,7 @@ this.state.category === "popular-movie"
             </section>
           )}
           <div style={{textAlign: 'center', marginTop: '2rem'}}>
+            {/*  Boton Cargar Mas */}
             <button className="detail-buttons" onClick={()=> this.cargarMas()}>
                 {this.state.textoBoton}
             </button>
