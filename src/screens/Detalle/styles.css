@@ -48,6 +48,7 @@
 .detail-buttons {
   display: flex;
   gap: 16px;
+  justify-content: center;
 }
 
 .detail-buttons button {

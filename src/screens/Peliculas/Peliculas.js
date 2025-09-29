@@ -21,8 +21,6 @@ class Peliculas extends Component {
         fetch( `https://api.themoviedb.org/3/movie/popular?api_key=${apikey}`)
             .then((resp) => resp.json())
             .then((data) => {
-            console.log("Data",data.total_pages);
-
               this.setState({
                 MoviesPopular: data.results,
                 pageNumber: this.state.pageNumber + 1 //Sumamos una pagina
@@ -50,8 +48,6 @@ this.state.category === "popular-movie"
         fetch( `https://api.themoviedb.org/3/movie/popular?page=${this.state.pageNumber}&api_key=${apikey}`)
             .then((resp) => resp.json())
             .then((data) => {
-            console.log("Data",data.total_pages);
-
               this.setState({
                 MoviesPopular: this.state.MoviesPopular.concat(data.results), //Concateno las nuevos peliuclas con las que ya estan en MoviesPopular
                 pageNumber: this.state.pageNumber + 1
@@ -70,9 +66,7 @@ this.state.category === "popular-movie"
 
   
 
-  render() {
-    console.log('pagina', this.state.pageNumber);
-    
+  render() {    
     return (
       <main>
         <div className="page-container">

@@ -23,8 +23,9 @@ class FormularioBusqueda extends Component {
         <label>Buscar:</label>
         <input
           type="text"
-          value={this.state.valor}
-          onChange={(e) => this.setState({ valor: e.target.value })}
+          value={this.state.valor} // muestra el actual "valor" del estado 
+          onChange={(e) => this.setState({ valor: e.target.value })} // Cada vez que el usuario escribe el actualizamos el State y a "valor" le metemos el valor del evento
+          // El valor del evento, osea lo que el usuario busca es justamente "e.target.value" 
         />
         <div className="radio-group">
           <label>
@@ -32,8 +33,8 @@ class FormularioBusqueda extends Component {
               type="radio"
               name="tipo"
               value="movie"
-              checked={this.state.tipo === "movie"}
-              onChange={(e) => this.setState({ tipo: e.target.value })}
+              checked={this.state.tipo === "movie"} //Si el estado "tipo" es movie, me aparece este radio seleccionado
+              onChange={(e) => this.setState({ tipo: e.target.value })} //Cuando clickeamos en el radio button "tipo" actualiza con el value "movie" que definimos 2 renglones arriba
             />
             Películas
           </label>
@@ -43,7 +44,7 @@ class FormularioBusqueda extends Component {
               name="tipo"
               value="tv"
               checked={this.state.tipo === "tv"}
-              onChange={(e) => this.setState({ tipo: e.target.value })}
+              onChange={(e) => this.setState({ tipo: e.target.value })} // Lo mismo pero con series
             />
             Series
           </label>

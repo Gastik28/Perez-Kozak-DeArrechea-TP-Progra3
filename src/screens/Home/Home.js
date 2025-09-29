@@ -53,7 +53,6 @@ class Home extends Component {
     fetch(urlTopRatedMovies)
       .then((resp) => resp.json())
       .then((data) => {
-        console.log("Data",data);
         this.setState({
           MoviesTopRated: data.results,
           originalMoviesTopRated: data.results,
@@ -65,7 +64,6 @@ class Home extends Component {
       fetch(urlSeriesAire)
       .then((resp) => resp.json())
       .then((data) => {        
-        console.log("Data",data);
         
         this.setState({
           SeriesAire: data.results,
@@ -97,16 +95,23 @@ class Home extends Component {
   filtrarContenido(textoAFiltrar) {
     console.log('textoAFiltrar', textoAFiltrar)
     
-    if (textoAFiltrar.trim() === '') {
+    if (textoAFiltrar.trim() === '') // Si el texto que el usuario busco esta vacio .trim() elimina espacios en blanco
+      {
       this.setState({
+        // Me restaura todos los datos originales, y me los reemplaza por el estado el cual tiene toda la data de la API 
+        // Como los datos de "Original" en este caso son iguales a los otros, no me hace nada.
         MoviesPopular: this.state.originalMoviesPopular,
         MoviesTopRated: this.state.originalMoviesTopRated,
         SeriesAire: this.state.originalSeriesAire,
         SeriesTopRated: this.state.originalSeriesTopRated
       });
-      return;
+      return; // Evita que se siga ejecutando el filtrado
     }
 
+    // Si el texto del usuario ya no esta mas vacio 
+
+    // Creamos una nueva variable la cual va a filtrar las listras de las peliculas y series originales segun lo que busco el usuario 
+    // Hace un filter y pasa los elementos a lowe case y crea un nuevo array que incluya solamente a las peliculas o series que cuyo titulo o nombre incluye el texto buscado 
     const peliculasPopularesFiltradas = this.state.originalMoviesPopular.filter(
       (elm) => elm.title.toLowerCase().includes(textoAFiltrar.toLowerCase())
     );
@@ -123,8 +128,11 @@ class Home extends Component {
       (elm) => elm.name.toLowerCase().includes(textoAFiltrar.toLowerCase())
     );
     
-    console.log(peliculasPopularesFiltradas.length)
+    console.log('hola',peliculasPopularesFiltradas.length)
+
     this.setState({
+      // Actualizamos el estado de la data de las APIs con estas peliculas o series filtradas a partir de que el titulo este incluido en lo que busca el usuario
+      // Si aca por ejemplo hay solo 2 pelicuals que coinciden con la busqueda, automaticamente se va a mostrar en la screen porque importamos los componentes de cada uno
       MoviesPopular: peliculasPopularesFiltradas,
       MoviesTopRated: peliculasTopRatedFiltradas,
       SeriesAire: seriesAireFiltradas,
@@ -140,8 +148,8 @@ class Home extends Component {
 
           {this.state.pedidoInicialCompleto ? (
             <div>
-          
-          <FilterForm filtrar={(textoAFiltrar) => this.filtrarContenido(textoAFiltrar)} />
+          {/* Le enviamos el metodo filtrarConenido con un parametro a FilterForm */}
+          <FilterForm filtrar={(textoAFiltrar) => this.filtrarContenido(textoAFiltrar)} /> 
           
           <div className="content-section">
             <h1 className="section-title">Peliculas Populares</h1>

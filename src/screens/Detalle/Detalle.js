@@ -12,6 +12,7 @@ class Detalle extends Component {
       MoviesDetalles: [],
       SeriesDetalles: [],
       pedidoInicialCompleto: false, // Nuevo estado para controlar la carga
+      esFav: false
     };
   }
   componentDidMount() {
@@ -28,7 +29,7 @@ class Detalle extends Component {
                 MoviesDetalles: data,
                 pedidoInicialCompleto: true, // Confirmamos que recibimos la Data
               });
-              this.checkIfFavorite();
+              this.checkIfFavorite(); //Chequea si el elemento esta en favs. Si el elemento esta muestra el boton correcto
             })
         : // All Series Fetch
           fetch(
@@ -58,6 +59,11 @@ class Detalle extends Component {
         this.setState({ esFav: true });
       }
     }
+    // Verifica si el elemento actual (película o serie) ya está en favoritos (localStorage).
+    // Si el ID está en el array de favoritos, pone el estado esFav en true.
+    // Es lo mismo que lo que hace el component did mount en Card.js que chequea si es fav o no antes de que la data llegue
+    // Aca tmb lo ves cuando la data llega porque lo haces justamente despues del fetch porque no podes hacerlo sin que los datos llegue
+    // asi que no lo podes hacer en el didmount de una como card, hay que hacer primero el fetch 
   }
 
   agregarFav() {
@@ -98,6 +104,8 @@ class Detalle extends Component {
     }
 
     this.setState({ esFav: false });
+    // aca no esta "if (this.props.onClick) this.props.onClick();" 
+    // porque Detalle no necesita avisarle a un componente padre que refresque una lista.
   }
 
   render() {
@@ -175,7 +183,7 @@ class Detalle extends Component {
                   {/* Boton Fav */}
                   {this.state.esFav ? (
                     <button onClick={() => this.sacaFav()}>
-                      Sacar de favoritos
+                      Eliminar de favoritos
                     </button>
                   ) : (
                     <button onClick={() => this.agregarFav()}>
